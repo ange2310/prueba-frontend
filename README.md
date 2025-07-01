@@ -184,6 +184,10 @@ Commit tus cambios (git commit -am 'Agregar nueva funcionalidad')
 Push a la rama (git push origin feature/nueva-funcionalidad)
 Abre un Pull Request
 
+# Manual de Usuario
+
+El manual de usuario completo se encuentra disponible en este repositorio y proporciona una guía detallada para el uso del sistema de gestión escolar.
+
 
 Autor: Angelica Maria Marcillo Alba
 
