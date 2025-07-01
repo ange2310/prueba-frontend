@@ -1,9 +1,9 @@
-// profesor-form.component.ts - Simplificado como el de estudiante
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProfesorService } from '../../../core/services/profesor.service';
+import { fechaNoFutura } from 'src/app/shared/validators/fecha-no-futura.validator';
 
 @Component({
   selector: 'app-profesor-form',
@@ -169,7 +169,7 @@ export class ProfesorFormComponent implements OnInit {
     this.profesorForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       apellido: ['', [Validators.required, Validators.minLength(2)]],
-      fechaNacimiento: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required, fechaNoFutura]],
       email: ['', [Validators.required, Validators.email]],
       telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       especialidad: ['', [Validators.required]],

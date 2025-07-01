@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AdministrativoService } from '../../../core/services/administrativo.service';
-
+import { fechaNoFutura } from 'src/app/shared/validators/fecha-no-futura.validator';
 @Component({
   selector: 'app-administrativo-form',
   template: `
@@ -183,7 +183,7 @@ export class AdministrativoFormComponent implements OnInit {
     this.administrativoForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       apellido: ['', [Validators.required, Validators.minLength(2)]],
-      fechaNacimiento: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required, fechaNoFutura]],
       email: ['', [Validators.required, Validators.email]],
       telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       cargo: ['', [Validators.required]],

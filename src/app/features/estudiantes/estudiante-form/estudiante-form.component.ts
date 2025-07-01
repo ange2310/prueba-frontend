@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EstudianteService } from '../../../core/services/estudiante.service';
 import { Estudiante } from '../../../shared/models/estudiante.model';
+import { fechaNoFutura } from 'src/app/shared/validators/fecha-no-futura.validator';
 
 @Component({
   selector: 'app-estudiante-form',
@@ -49,7 +50,7 @@ export class EstudianteFormComponent implements OnInit {
       // Datos de Persona
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       apellido: ['', [Validators.required, Validators.minLength(2)]],
-      fechaNacimiento: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required, fechaNoFutura]],
       email: ['', [Validators.required, Validators.email]],
       telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       
