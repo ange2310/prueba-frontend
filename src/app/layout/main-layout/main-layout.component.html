@@ -1,0 +1,99 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar -->
+  <mat-sidenav 
+    #drawer 
+    class="sidenav" 
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    
+    <!-- Logo y título -->
+    <div class="sidenav-header">
+      <mat-icon class="logo-icon">school</mat-icon>
+      <h3 class="app-title">Gestión Escolar</h3>
+    </div>
+
+    <!-- Usuario actual -->
+    <div class="user-info" *ngIf="currentUser$ | async as user">
+      <mat-icon>account_circle</mat-icon>
+      <div class="user-details">
+        <span class="username">{{ user.username }}</span>
+        <span class="role">{{ user.role }}</span>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Menú de navegación -->
+    <mat-nav-list class="nav-list">
+      <ng-container *ngFor="let item of menuItems">
+        <!-- Items sin hijos -->
+        <a mat-list-item 
+           *ngIf="item.children.length === 0"
+           [routerLink]="item.route" 
+           routerLinkActive="active-link">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.title }}</span>
+        </a>
+
+        <!-- Items con hijos -->
+        <mat-expansion-panel 
+          *ngIf="item.children.length > 0"
+          class="nav-expansion-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+              {{ item.title }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          
+          <div class="sub-menu">
+            <a mat-list-item 
+               *ngFor="let child of item.children"
+               [routerLink]="child.route"
+               routerLinkActive="active-sub-link">
+              <span matListItemTitle>{{ child.title }}</span>
+            </a>
+          </div>
+        </mat-expansion-panel>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Contenido principal -->
+  <mat-sidenav-content>
+    <!-- Toolbar/Header -->
+    <mat-toolbar color="primary" class="app-toolbar">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      
+      <span class="spacer"></span>
+      
+      <!-- Botón de logout -->
+      <button mat-icon-button 
+              [matMenuTriggerFor]="userMenu"
+              aria-label="User menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Cerrar Sesión</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <!-- Contenido de las páginas -->
+    <div class="content-container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

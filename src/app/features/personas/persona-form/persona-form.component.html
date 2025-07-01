@@ -1,0 +1,104 @@
+<div class="form-container">
+  <!-- Header -->
+  <div class="header-section">
+    <h2>{{ isEditing ? 'Editar Persona' : 'Nueva Persona' }}</h2>
+    <button mat-icon-button (click)="onCancel()" matTooltip="Volver">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+
+  <!-- Formulario -->
+  <mat-card class="form-card">
+    <mat-card-content>
+      <form [formGroup]="personaForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <!-- Nombre -->
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nombre</mat-label>
+            <input matInput 
+                   type="text" 
+                   formControlName="nombre"
+                   placeholder="Ingrese el nombre">
+            <mat-error *ngIf="personaForm.get('nombre')?.invalid && personaForm.get('nombre')?.touched">
+              {{ getFieldError('nombre') }}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Apellido -->
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Apellido</mat-label>
+            <input matInput 
+                   type="text" 
+                   formControlName="apellido"
+                   placeholder="Ingrese el apellido">
+            <mat-error *ngIf="personaForm.get('apellido')?.invalid && personaForm.get('apellido')?.touched">
+              {{ getFieldError('apellido') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <!-- Email -->
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput 
+                   type="email" 
+                   formControlName="email"
+                   placeholder="correo@ejemplo.com">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="personaForm.get('email')?.invalid && personaForm.get('email')?.touched">
+              {{ getFieldError('email') }}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Teléfono -->
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Teléfono</mat-label>
+            <input matInput 
+                   type="tel" 
+                   formControlName="telefono"
+                   placeholder="1234567890">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="personaForm.get('telefono')?.invalid && personaForm.get('telefono')?.touched">
+              {{ getFieldError('telefono') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <!-- Fecha de Nacimiento -->
+          <mat-form-field appearance="outline" class="form-field full-width">
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput 
+                   [matDatepicker]="picker" 
+                   formControlName="fechaNacimiento"
+                   readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="personaForm.get('fechaNacimiento')?.invalid && personaForm.get('fechaNacimiento')?.touched">
+              {{ getFieldError('fechaNacimiento') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Botones -->
+        <div class="form-actions">
+          <button mat-button 
+                  type="button" 
+                  (click)="onCancel()"
+                  [disabled]="isLoading">
+            Cancelar
+          </button>
+          
+          <button mat-raised-button 
+                  color="primary" 
+                  type="submit"
+                  [disabled]="!personaForm.valid || isLoading">
+            <mat-icon *ngIf="isLoading">hourglass_empty</mat-icon>
+            {{ isLoading ? 'Guardando...' : (isEditing ? 'Actualizar' : 'Crear') }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,92 @@
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    
+    h2 {
+      margin: 0;
+      color: #333;
+    }
+  }
+  
+  .form-card {
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      
+      .form-field {
+        flex: 1;
+        
+        &.full-width {
+          width: 100%;
+        }
+      }
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid #e0e0e0;
+      
+      button {
+        min-width: 100px;
+        
+        mat-icon {
+          margin-right: 8px;
+          animation: spin 1s linear infinite;
+        }
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsivo
+@media (max-width: 768px) {
+  .personas-container {
+    .header-section {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      
+      button {
+        align-self: flex-end;
+      }
+    }
+  }
+  
+  .form-container {
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    .form-actions {
+      flex-direction: column-reverse;
+      
+      button {
+        width: 100%;
+      }
+    }
+  }
+  
+  .table-container .personas-table {
+    .mat-column-telefono,
+    .mat-column-fechaNacimiento {
+      display: none;
+    }
+  }
+}

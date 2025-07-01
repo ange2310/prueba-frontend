@@ -1,0 +1,158 @@
+<div class="form-container">
+  <!-- Header -->
+  <div class="header-section">
+    <h2>{{ isEditing ? 'Editar Estudiante' : 'Nuevo Estudiante' }}</h2>
+    <button mat-icon-button (click)="onCancel()" matTooltip="Volver">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+
+  <!-- Formulario -->
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>school</mat-icon>
+        Información del Estudiante
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="estudianteForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Sección: Información Personal -->
+        <div class="form-section">
+          <h3>Información Personal</h3>
+          
+          <div class="form-row">
+            <!-- Nombre -->
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Nombre</mat-label>
+              <input matInput 
+                     type="text" 
+                     formControlName="nombre"
+                     placeholder="Ingrese el nombre">
+              <mat-error *ngIf="estudianteForm.get('nombre')?.invalid && estudianteForm.get('nombre')?.touched">
+                {{ getFieldError('nombre') }}
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Apellido -->
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Apellido</mat-label>
+              <input matInput 
+                     type="text" 
+                     formControlName="apellido"
+                     placeholder="Ingrese el apellido">
+              <mat-error *ngIf="estudianteForm.get('apellido')?.invalid && estudianteForm.get('apellido')?.touched">
+                {{ getFieldError('apellido') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <!-- Email -->
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Email</mat-label>
+              <input matInput 
+                     type="email" 
+                     formControlName="email"
+                     placeholder="correo@ejemplo.com">
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-error *ngIf="estudianteForm.get('email')?.invalid && estudianteForm.get('email')?.touched">
+                {{ getFieldError('email') }}
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Teléfono -->
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Teléfono</mat-label>
+              <input matInput 
+                     type="tel" 
+                     formControlName="telefono"
+                     placeholder="1234567890">
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-error *ngIf="estudianteForm.get('telefono')?.invalid && estudianteForm.get('telefono')?.touched">
+                {{ getFieldError('telefono') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <!-- Fecha de Nacimiento -->
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Fecha de Nacimiento</mat-label>
+              <input matInput 
+                     [matDatepicker]="picker" 
+                     formControlName="fechaNacimiento"
+                     readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="estudianteForm.get('fechaNacimiento')?.invalid && estudianteForm.get('fechaNacimiento')?.touched">
+                {{ getFieldError('fechaNacimiento') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        
+        <div class="form-section">
+          <h3>Información Académica</h3>
+          
+          <div class="form-row">
+            <!-- Número de Matrícula -->
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Número de Matrícula</mat-label>
+              <input matInput 
+                     type="text" 
+                     formControlName="numeroMatricula"
+                     placeholder="EST2024001">
+              <button mat-icon-button 
+                      matSuffix 
+                      type="button"
+                      (click)="generateMatricula()"
+                      matTooltip="Generar matrícula automática">
+                <mat-icon>refresh</mat-icon>
+              </button>
+              <mat-hint>Formato: EST + año + número secuencial</mat-hint>
+              <mat-error *ngIf="estudianteForm.get('numeroMatricula')?.invalid && estudianteForm.get('numeroMatricula')?.touched">
+                {{ getFieldError('numeroMatricula') }}
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Grado -->
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Grado</mat-label>
+              <mat-select formControlName="grado">
+                <mat-option *ngFor="let grado of grados" [value]="grado">
+                  {{ grado }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="estudianteForm.get('grado')?.invalid && estudianteForm.get('grado')?.touched">
+                {{ getFieldError('grado') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="form-actions">
+          <button mat-button 
+                  type="button" 
+                  (click)="onCancel()"
+                  [disabled]="isLoading">
+            Cancelar
+          </button>
+          
+          <button mat-raised-button 
+                  color="primary" 
+                  type="submit"
+                  [disabled]="!estudianteForm.valid || isLoading">
+            <mat-icon *ngIf="isLoading">hourglass_empty</mat-icon>
+            {{ isLoading ? 'Guardando...' : (isEditing ? 'Actualizar' : 'Crear') }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

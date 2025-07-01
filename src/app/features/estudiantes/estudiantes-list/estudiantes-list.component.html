@@ -1,0 +1,106 @@
+<div class="estudiantes-container">
+  <!-- Header -->
+  <div class="header-section">
+    <h2>Gestión de Estudiantes</h2>
+    <button mat-raised-button color="primary" (click)="newEstudiante()">
+      <mat-icon>add</mat-icon>
+      Nuevo Estudiante
+    </button>
+  </div>
+
+  <!-- Filtros -->
+  <mat-card class="filter-card">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Buscar estudiantes</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Nombre, matrícula, email...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tabla -->
+  <mat-card class="table-card">
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" class="estudiantes-table">
+
+          <ng-container matColumnDef="idPersona">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let estudiante">{{ estudiante.idPersona }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="numeroMatricula">
+            <th mat-header-cell *matHeaderCellDef>Matrícula</th>
+            <td mat-cell *matCellDef="let estudiante">
+              <span class="matricula-badge">{{ estudiante.numeroMatricula }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let estudiante">{{ estudiante.nombre }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="apellido">
+            <th mat-header-cell *matHeaderCellDef>Apellido</th>
+            <td mat-cell *matCellDef="let estudiante">{{ estudiante.apellido }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="grado">
+            <th mat-header-cell *matHeaderCellDef>Grado</th>
+            <td mat-cell *matCellDef="let estudiante">
+              <span class="grado-chip">{{ estudiante.grado }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let estudiante">
+              <a [href]="'mailto:' + estudiante.email" class="email-link">{{ estudiante.email }}</a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let estudiante">
+              <button mat-icon-button 
+                      color="primary" 
+                      (click)="editEstudiante(estudiante)"
+                      matTooltip="Editar">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button 
+                      color="warn" 
+                      (click)="deleteEstudiante(estudiante)"
+                      matTooltip="Eliminar">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <div *ngIf="isLoading" class="loading-container">
+          <mat-spinner diameter="50"></mat-spinner>
+        </div>
+
+        <div *ngIf="!isLoading && dataSource.data.length === 0" class="no-data">
+          <mat-icon>school</mat-icon>
+          <p>No se encontraron estudiantes</p>
+        </div>
+      </div>
+
+      <mat-paginator 
+        [length]="totalElements"
+        [pageSize]="pageSize"
+        [pageIndex]="pageIndex"
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons>
+      </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>
