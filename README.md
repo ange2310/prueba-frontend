@@ -1,194 +1,225 @@
-# Sistema de Gestión Escolar - Frontend
+# Gestión Escolar – Frontend
 
-Frontend desarrollado en Angular para el sistema integral de gestión escolar. Interfaz moderna y responsiva que permite administrar estudiantes, profesores, administrativos, cursos e inscripciones de manera eficiente.
-Características Principales
-
-Gestión Completa: Estudiantes, profesores, administrativos, cursos e inscripciones
-Autenticación JWT: Sistema de login seguro con guards de ruta
-Interfaz Moderna: Diseño responsivo con Angular Material
-Operaciones CRUD: Crear, leer, actualizar y eliminar registros
-Paginación y Filtros: Manejo eficiente de grandes volúmenes de datos
-Validación de Formularios: Validación reactiva en tiempo real
-Navegación Intuitiva: Sidebar con menús organizados por módulos
-
-# Tecnologías Utilizadas
-
-Angular 16: Framework principal
-TypeScript: Lenguaje de programación
-Angular Material: Componentes UI
-RxJS: Programación reactiva
-Angular Router: Navegación entre rutas
-Angular Forms: Formularios reactivos
-Angular HTTP Client: Comunicación con API
-
-Requisitos Previos
-
-Node.js 18+
-npm 9+
-Angular CLI 16+
-
-Instalación y Configuración
-1. Clonar el repositorio
-bashgit clone <https://github.com/ange2310/prueba-frontend.git>
-cd gestion-escolar-frontend
-2. Instalar dependencias
-bashnpm install
-3. Configurar conexión con Backend
-El proyecto está configurado para conectarse al backend en http://localhost:8080. Si necesitas cambiar esta configuración, edita el archivo proxy.conf.json:
-json{
-  "/api/*": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
-  }
-}
-4. Ejecutar la aplicación
-bashnpm start
-La aplicación estará disponible en http://localhost:4200
-Estructura del Proyecto
-src/app/
-├── core/                     # Servicios principales y configuración
-│   ├── guards/              # Guards de autenticación
-│   ├── interceptors/        # Interceptor JWT
-│   └── services/            # Servicios de API
-├── features/                # Módulos funcionales
-│   ├── auth/               # Autenticación
-│   ├── dashboard/          # Panel principal
-│   ├── estudiantes/        # Gestión de estudiantes
-│   ├── profesores/         # Gestión de profesores
-│   ├── administrativos/    # Gestión de administrativos
-│   ├── cursos/            # Gestión de cursos
-│   ├── inscripciones/     # Gestión de inscripciones
-│   └── personas/          # Gestión de personas
-├── layout/                 # Layout principal
-├── shared/                 # Componentes y servicios compartidos
-│   ├── components/        # Componentes reutilizables
-│   ├── models/           # Interfaces TypeScript
-│   ├── pipes/            # Pipes personalizados
-│   └── styles/           # Estilos compartidos
-└── environments/          # Configuraciones de entorno
-# Funcionalidades por Módulo
-# Dashboard
-
-Resumen estadístico del sistema
-Accesos rápidos a funciones principales
-Información del usuario logueado
-
-# Gestión de Personas
-
-Lista paginada de todas las personas
-Edición de información personal
-Filtros de búsqueda
-
-# Gestión de Estudiantes
-
-CRUD completo de estudiantes
-Generación automática de número de matrícula
-Asignación de grados académicos
-Validaciones específicas (formato de matrícula)
-
-# Gestión de Profesores
-
-Registro de profesores con especialidades
-Fechas de contratación
-Asignación a cursos
-
-# Gestión de Administrativos
-
-Control de personal administrativo
-Asignación de cargos y departamentos
-Organigrama funcional
-
-# Gestión de Cursos
-
-Creación y edición de materias
-Asignación de créditos académicos
-Vinculación con profesores
-Control de capacidad
-
-# Gestión de Inscripciones
-
-Matriculación de estudiantes en cursos
-Control de fechas de inscripción
-Validación de duplicados
-Historial académico
-
-# Autenticación
-El sistema utiliza autenticación JWT con las siguientes credenciales predeterminadas:
-
-# Flujo de Autenticación
-
-Login con credenciales
-Recepción de token JWT
-Almacenamiento seguro en localStorage
-Inclusión automática en headers (interceptor)
-Validación en cada ruta protegida (guards)
-
-# Comandos Útiles
-Desarrollo
-bash# Ejecutar en modo desarrollo
-npm start
-
-# Ejecutar con recarga automática
-ng serve --open
-
-# Ejecutar en puerto específico
-ng serve --port 4300
-Construcción
-bash# Build para producción
-npm run build
-
-# Build para desarrollo
-npm run build:dev
-
-# Configuración de Proxy
-El proyecto incluye configuración de proxy para desarrollo que redirige las peticiones /api/* al backend:
-json{
-  "/api/*": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
-  }
-}
-Despliegue
-Producción
-bash# Build optimizado para producción
-ng build --configuration production
-
-# Los archivos se generan en /dist/gestion-escolar-frontend
-Consideraciones para Producción
-
-Configurar variables de entorno en environment.prod.ts
-Ajustar URL del backend según servidor de producción
-Configurar servidor web para servir archivos estáticos
-Implementar redirección para rutas de Angular (fallback a index.html)
-
-Backend Relacionado
-Este frontend está diseñado para trabajar con el backend de gestión escolar desarrollado en Spring Boot. Asegúrate de tener el backend ejecutándose en http://localhost:8080 antes de iniciar el frontend.
-Repositorio del Backend: https://github.com/ange2310/prueba-backend.git
-Problemas Comunes
-# Error de CORS
-Si encuentras problemas de CORS, verifica que el backend tenga configurado correctamente el origen del frontend.
-# Error 404 en Rutas
-En producción, configura el servidor web para redirigir todas las rutas no encontradas a index.html.
-Token Expirado
-Los tokens JWT expiran en 24 horas. Si recibes errores 401, realiza login nuevamente.
-
-Contribución
-
-Fork el proyecto
-Crea una rama para tu feature (git checkout -b feature/nueva-funcionalidad)
-Commit tus cambios (git commit -am 'Agregar nueva funcionalidad')
-Push a la rama (git push origin feature/nueva-funcionalidad)
-Abre un Pull Request
-
-# Manual de Usuario
-
-El manual de usuario completo se encuentra disponible en este repositorio y proporciona una guía detallada para el uso del sistema de gestión escolar.
+Aplicación web moderna desarrollada en Angular para la gestión integral de estudiantes, profesores, administrativos, cursos e inscripciones.
 
 
-Autor: Angelica Maria Marcillo Alba
+## Descripción
 
-Repositorio: https://github.com/ange2310/prueba-frontend.git
+Este frontend implementa una interfaz de usuario completa y responsiva para el sistema de gestión escolar, con operaciones CRUD para todas las entidades, autenticación JWT, paginación, filtros y navegación intuitiva mediante sidebar organizados por módulos.
+
+## Tecnologías & dependencias clave
+
+- Angular 16
+- TypeScript
+- Angular Material
+- Angular Router
+- Angular Forms (Formularios reactivos)
+- Angular HTTP Client
+- Angular CDK (Layout responsivo)
+
+
+## Requisitos previos
+
+| Requisito    | Versión mínima |
+|--------------|---------------|
+| Node.js      | 18            |
+| npm          | 9             |
+| Angular CLI  | 16            |
+
+
+
+## Instalación
+
+1. *Clona el repositorio y entra al proyecto:*
+   ```bash
+   git clone https://github.com/ange2310/prueba-frontend.git
+   cd gestion-escolar-frontend
+   ```
+
+2. *Instala las dependencias:*
+   ```bash
+   npm install
+   ```
+
+3. *Configura la conexión con el Backend:*
+   - El proyecto está configurado para conectarse al backend en `http://localhost:8080`
+   - Si necesitas cambiar esta configuración, edita el archivo `proxy.conf.json`:
+     ```json
+     {
+       "/api/*": {
+         "target": "http://localhost:8080",
+         "secure": false,
+         "changeOrigin": true,
+         "logLevel": "debug"
+       }
+     }
+     ```
+
+4. *Ejecuta la aplicación:*
+   ```bash
+   npm start
+   ```
+   
+   o bien:
+   ```bash
+   ng serve
+   ```
+
+   También puedes usar un IDE como VS Code y ejecutar directamente desde la terminal integrada.
+
+## Ejecución y entorno
+
+- El frontend se ejecuta por defecto en [http://localhost:4200]
+- Asegúrate de tener el backend ejecutándose en [http://localhost:8080]
+- La aplicación es completamente responsiva y funciona en dispositivos móviles
+
+
+## Módulos principales
+
+> Todas las rutas están protegidas por autenticación JWT
+
+### Autenticación
+
+| Ruta     | Componente      | Descripción                    |
+|----------|-----------------|--------------------------------|
+| /login   | LoginComponent  | Inicio de sesión con JWT       |
+
+### Dashboard
+
+| Ruta        | Componente         | Descripción                    |
+|-------------|--------------------|--------------------------------|
+| /dashboard  | DashboardComponent | Panel principal con estadísticas |
+
+### Gestión de Personas
+
+| Ruta              | Componente              | Descripción                    |
+|-------------------|-------------------------|--------------------------------|
+| /personas         | PersonasListComponent   | Lista paginada de personas     |
+| /personas/edit/:id| PersonaFormComponent    | Editar información personal    |
+
+### Gestión de Estudiantes
+
+| Ruta                 | Componente                | Descripción                    |
+|----------------------|---------------------------|--------------------------------|
+| /estudiantes         | EstudiantesListComponent  | Lista paginada de estudiantes  |
+| /estudiantes/new     | EstudianteFormComponent   | Crear nuevo estudiante         |
+| /estudiantes/edit/:id| EstudianteFormComponent   | Editar estudiante              |
+
+### Gestión de Profesores
+
+| Ruta                | Componente               | Descripción                    |
+|---------------------|--------------------------|--------------------------------|
+| /profesores         | ProfesoresListComponent  | Lista paginada de profesores   |
+| /profesores/new     | ProfesorFormComponent    | Crear nuevo profesor           |
+| /profesores/edit/:id| ProfesorFormComponent    | Editar profesor                |
+
+### Gestión de Administrativos
+
+| Ruta                      | Componente                   | Descripción                    |
+|---------------------------|------------------------------|--------------------------------|
+| /administrativos          | AdministrativosListComponent | Lista paginada de administrativos |
+| /administrativos/new      | AdministrativoFormComponent  | Crear nuevo administrativo     |
+| /administrativos/edit/:id | AdministrativoFormComponent  | Editar administrativo          |
+
+### Gestión de Cursos
+
+| Ruta             | Componente          | Descripción                    |
+|------------------|---------------------|--------------------------------|
+| /cursos          | CursosListComponent | Lista paginada de cursos       |
+| /cursos/new      | CursoFormComponent  | Crear nuevo curso              |
+| /cursos/edit/:id | CursoFormComponent  | Editar curso                   |
+
+### Gestión de Inscripciones
+
+| Ruta                    | Componente                 | Descripción                    |
+|-------------------------|----------------------------|--------------------------------|
+| /inscripciones          | InscripcionesListComponent | Lista paginada de inscripciones |
+| /inscripciones/new      | InscripcionFormComponent   | Crear nueva inscripción        |
+| /inscripciones/edit/:id | InscripcionFormComponent   | Editar inscripción             |
+
+
+## Ejemplo de uso y autenticación
+
+1. *Inicia la aplicación:*
+   ```bash
+   npm start
+   ```
+
+2. *Accede a la aplicación:*
+   - Abre tu navegador en [http://localhost:4200]
+   - Serás redirigido automáticamente a `/login`
+
+3. *Credenciales de prueba:*
+   ```json
+   {
+     "username": "patricia.salazar",
+     "password": "patricia123"
+   }
+   ```
+
+4. *Flujo de autenticación:*
+   - El token JWT se almacena automáticamente en localStorage
+   - Se incluye en todas las peticiones HTTP mediante interceptor
+   - Las rutas están protegidas por guards de autenticación
+
+---
+
+## Características destacadas
+
+### Validaciones
+- Formularios reactivos con validación en tiempo real
+- Validator personalizado para fechas no futuras
+- Validación de formato de matrícula (EST2024001)
+- Validación de email y teléfono
+
+### Interfaz de Usuario
+- Diseño responsivo con Angular Material
+- Sidebar colapsable en dispositivos móviles
+- Paginación y filtros en todas las listas
+- Diálogos de confirmación para eliminaciones
+- Notificaciones toast para feedback del usuario
+
+---
+
+## Estructura de carpetas
+
+```
+gestion-escolar-frontend/
+├── src/
+│   ├── app/
+│   │   ├── core/
+│   │   │   ├── guards/
+│   │   │   ├── interceptors/
+│   │   │   └── services/
+│   │   ├── features/
+│   │   │   ├── auth/
+│   │   │   ├── dashboard/
+│   │   │   ├── estudiantes/
+│   │   │   ├── profesores/
+│   │   │   ├── administrativos/
+│   │   │   ├── cursos/
+│   │   │   ├── inscripciones/
+│   │   │   └── personas/
+│   │   ├── layout/
+│   │   ├── shared/
+│   │   │   ├── components/
+│   │   │   ├── models/
+│   │   │   ├── validators/
+│   │   │   └── styles/
+│   │   └── environments/
+│   ├── assets/
+│   └── environments/
+├── proxy.conf.json
+├── angular.json
+├── package.json
+└── README.md
+```
+
+## Backend relacionado
+
+Este frontend está diseñado para trabajar con el backend de gestión escolar desarrollado en Spring Boot:  
+[https://github.com/ange2310/prueba-backend.git](https://github.com/ange2310/prueba-backend.git)
+
+## Autor
+
+**Autor:** Angelica Maria Marcillo Alba
